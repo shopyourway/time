@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>netstandard1.4;net45</TargetFrameworks>
+		<PackageId>OhioBox.Time</PackageId>
+		<BuildNumber>0</BuildNumber>
+		<PackageVersionSuffix>-dev</PackageVersionSuffix>
+		<AssemblyVersion>2.1.$(BuildNumber)</AssemblyVersion>
+		<FileVersion>$(AssemblyVersion)</FileVersion>
+		<PackageVersion>$(AssemblyVersion)$(PackageVersionSuffix)</PackageVersion>
+		<Authors>Sears Israel</Authors>
+		<Description>DateTime wrapper for consistent date handling across an application and easy testing</Description>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<RepositoryUrl>https://github.com/shopyourway/time</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/shopyourway/time</PackageProjectUrl>
+		<Copyright>© 2017 Sears Israel All rights reserved</Copyright>
+		<PackageTags>systemtime datetime date time</PackageTags>
+	</PropertyGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+		<Reference Include="System" />
+		<Reference Include="System.Core" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.4'">
+	</ItemGroup>
+</Project>

@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OhioBox.Time", "OhioBox.Time\OhioBox.Time.csproj", "{ECB8A764-C3F2-4F74-8926-AAEAA7FF526D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OhioBox.Time.Tests", "OhioBox.Time.Tests\OhioBox.Time.Tests.csproj", "{302A3E14-4FFB-48B7-BF80-EC05A603FAD2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F2862739-1D8B-477E-A0E6-F3D54EDEEC99}"
+ProjectSection(SolutionItems) = preProject
+	.nuget\NuGet.config = .nuget\NuGet.config
+EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ECB8A764-C3F2-4F74-8926-AAEAA7FF526D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECB8A764-C3F2-4F74-8926-AAEAA7FF526D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECB8A764-C3F2-4F74-8926-AAEAA7FF526D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECB8A764-C3F2-4F74-8926-AAEAA7FF526D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{302A3E14-4FFB-48B7-BF80-EC05A603FAD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{302A3E14-4FFB-48B7-BF80-EC05A603FAD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{302A3E14-4FFB-48B7-BF80-EC05A603FAD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{302A3E14-4FFB-48B7-BF80-EC05A603FAD2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
