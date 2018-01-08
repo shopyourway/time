@@ -87,6 +87,7 @@ Calculates the current fiscal date based on 4-5-4 fiscal calendar method.
 ```cs
 var currentFiscalMetaData = SystemTime.CstNow().GetFiscalMetaData();
 Console.WriteLine($"The current fiscal medata data are: year: {currentFiscalMetaData.Year}, quarter: {currentFiscalMetaData.Quarter}, month {currentFiscalMetaData.Month} and week: {currentFiscalMetaData.Week}");
+```
 			
 ## Development
 
