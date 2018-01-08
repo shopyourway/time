@@ -85,7 +85,7 @@ var cstDate = SystemTime.Now().ConvertFromUtcToCst(); // Will return 2018-1-7 4:
 #### Fiscal Date MetaData
 Calculates the current fiscal date based on 4-5-4 fiscal calendar method.
 ```cs
-var currentFiscalMetaData = new DateTime(2020, 7, 23).GetFiscalMetaData(); 25, 6, 2, 2020)]
+var currentFiscalMetaData = new DateTime(2020, 7, 23).GetFiscalMetaData();
 Console.WriteLine($"The current fiscal medata data are: year: {currentFiscalMetaData.Year}, quarter: {currentFiscalMetaData.Quarter}, month {currentFiscalMetaData.Month} and week: {currentFiscalMetaData.Week}");
 // Output: The current fiscal medata data are: year: 2020, quarter: 2, month 6 and week: 25
 ```
