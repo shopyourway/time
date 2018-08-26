@@ -1,31 +1,30 @@
+using System;
+using AnalyzerTest;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using TestHelper;
-using AnalyzerTest;
 
-namespace AnalyzerTest.Test
+namespace OhioBox.Time.Analyzer.Tests
 {
-    [TestClass]
-    public class UnitTest : CodeFixVerifier
-    {
+	[TestClass]
+	public class UnitTest : CodeFixVerifier
+	{
+		//No diagnostics expected to show up
+		[TestMethod]
+		public void TestMethod1()
+		{
+			var test = @"";
 
-        //No diagnostics expected to show up
-        [TestMethod]
-        public void TestMethod1()
-        {
-            var test = @"";
+			VerifyCSharpDiagnostic(test);
+		}
 
-            VerifyCSharpDiagnostic(test);
-        }
-
-        //Diagnostic and CodeFix both triggered and checked for
-        [TestMethod]
-        public void TestMethod2()
-        {
-            var test = @"
+		//Diagnostic and CodeFix both triggered and checked for
+		[TestMethod]
+		public void TestMethod2()
+		{
+			var test = @"
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -39,20 +38,21 @@ namespace AnalyzerTest.Test
         {   
         }
     }";
-            var expected = new DiagnosticResult
-            {
-                Id = "AnalyzerTest",
-                Message = String.Format("Type name '{0}' contains lowercase letters", "TypeName"),
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[] {
-                            new DiagnosticResultLocation("Test0.cs", 11, 15)
-                        }
-            };
+			var expected = new DiagnosticResult
+			{
+				Id = "AnalyzerTest",
+				Message = String.Format("Type name '{0}' contains lowercase letters", "TypeName"),
+				Severity = DiagnosticSeverity.Warning,
+				Locations =
+					new[]
+					{
+						new DiagnosticResultLocation("Test0.cs", 11, 15)
+					}
+			};
 
-            VerifyCSharpDiagnostic(test, expected);
+			VerifyCSharpDiagnostic(test, expected);
 
-            var fixtest = @"
+			var fixtest = @"
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -66,17 +66,17 @@ namespace AnalyzerTest.Test
         {   
         }
     }";
-            VerifyCSharpFix(test, fixtest);
-        }
+			VerifyCSharpFix(test, fixtest);
+		}
 
-        protected override CodeFixProvider GetCSharpCodeFixProvider()
-        {
-            return new AnalyzerTestCodeFixProvider();
-        }
+		protected override CodeFixProvider GetCSharpCodeFixProvider()
+		{
+			return new AnalyzerTestCodeFixProvider();
+		}
 
-        protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
-        {
-            return new AnalyzerTestAnalyzer();
-        }
-    }
+		protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
+		{
+			return new DateTimeAnalyzer();
+		}
+	}
 }
