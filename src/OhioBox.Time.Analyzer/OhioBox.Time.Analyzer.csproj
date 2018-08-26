@@ -4,21 +4,19 @@
     <TargetFramework>netstandard1.3</TargetFramework>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-  </PropertyGroup>
-  
-  <PropertyGroup>
-    <PackageId>AnalyzerTest</PackageId>
-    <PackageVersion>1.1.0</PackageVersion>
-    <Authors>doron</Authors>
-    <PackageLicenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</PackageLicenseUrl>
-    <PackageProjectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</PackageProjectUrl>
-    <PackageIconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</PackageIconUrl>
-    <RepositoryUrl>http://REPOSITORY_URL_HERE_OR_DELETE_THIS_LINE</RepositoryUrl>
+    <PackageId>OhioBox.Time.Analyzer</PackageId>
+	<BuildNumber>0</BuildNumber>
+	<PackageVersionSuffix>-dev</PackageVersionSuffix>
+	<AssemblyVersion>1.1.$(BuildNumber)</AssemblyVersion>
+	<FileVersion>$(AssemblyVersion)</FileVersion>
+	<PackageVersion>$(AssemblyVersion)$(PackageVersionSuffix)</PackageVersion>
+	<Authors>Sears Israel</Authors>
+    <RepositoryUrl>https://github.com/shopyourway/time</RepositoryUrl>
+	<PackageProjectUrl>https://github.com/shopyourway/time</PackageProjectUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>AnalyzerTest</Description>
-    <PackageReleaseNotes>Summary of changes made in this release of the package.</PackageReleaseNotes>
-    <Copyright>Copyright</Copyright>
-    <PackageTags>AnalyzerTest, analyzers</PackageTags>
+    <Description>Code analyzer</Description>
+    <Copyright>© 2018 Sears Israel All rights reserved</Copyright>
+    <PackageTags>analyzers ohiobox time code-analysis</PackageTags>
     <NoPackageAnalysis>true</NoPackageAnalysis>
   </PropertyGroup>
    
