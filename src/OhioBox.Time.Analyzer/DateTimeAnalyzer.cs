@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -11,11 +10,9 @@ namespace OhioBox.Time.Analyzer
 	public class DateTimeAnalyzer : DiagnosticAnalyzer
 	{
 		public const string DiagnosticId = "DateTimeUsage";
-		private const string Title = "Access DateTime is not allowed";
-		private const string Parameter = "Time";
 
-		private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(DiagnosticId, $"{Title}",
-			"The use of DateTime.{0} is not allowed, use SystemTime.{0} instead", Parameter, DiagnosticSeverity.Error,
+		private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(DiagnosticId, "Access DateTime is not allowed",
+			"The use of DateTime.{0} is not allowed, use SystemTime.{0} instead", "Current time usage", DiagnosticSeverity.Error,
 			isEnabledByDefault: true);
 
 		public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
