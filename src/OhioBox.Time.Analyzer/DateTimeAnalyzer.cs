@@ -11,13 +11,12 @@ namespace OhioBox.Time.Analyzer
 	public class DateTimeAnalyzer : DiagnosticAnalyzer
 	{
 		public const string DiagnosticId = "DateTimeUsage";
-		private const string Title = "DateTime is not allowed";
-		private const string Description = "Force the use of SystemTime";
-		private const string Parameter = "Parameter";
+		private const string Title = "Access DateTime is not allowed";
+		private const string Parameter = "Time";
 
-		private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(DiagnosticId, $"{Parameter} {Title}",
-			"DateTime.Now is not allowed, use SystemTime.now insted'", Parameter, DiagnosticSeverity.Error,
-			isEnabledByDefault: true, description: Description);
+		private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(DiagnosticId, $"{Title}",
+			"The use of DateTime.{0} is not allowed, use SystemTime.{0} instead", Parameter, DiagnosticSeverity.Error,
+			isEnabledByDefault: true);
 
 		public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
 
@@ -28,15 +27,16 @@ namespace OhioBox.Time.Analyzer
 
 		private void AnalyzeSimpleMemberAccessExpression(SyntaxNodeAnalysisContext context)
 		{
-			var expressionSyntax = (MemberAccessExpressionSyntax) context.Node;
+			var expressionSyntax = (MemberAccessExpressionSyntax)context.Node;
 
 			if (!(expressionSyntax.Expression is IdentifierNameSyntax expression))
 				return;
 
 			var identifier = expression.Identifier;
-			if (UseDateTime(identifier,expressionSyntax))
+			if (UseDateTime(identifier, expressionSyntax))
 			{
-				var diagnostic = Diagnostic.Create(Rule, context.Node.GetLocation(), identifier);
+				var memberProp = expressionSyntax.Name.Identifier.ValueText;
+				var diagnostic = Diagnostic.Create(Rule, context.Node.GetLocation(), memberProp);
 				context.ReportDiagnostic(diagnostic);
 			}
 		}
@@ -47,8 +47,8 @@ namespace OhioBox.Time.Analyzer
 			var memberOperator = expressionSyntax.OperatorToken.ValueText;
 			var memberSelector = expressionSyntax.Name.Identifier.ValueText;
 			return memberName == "DateTime" &&
-					memberOperator == "." &&
-					(memberSelector == "Now" || memberSelector == "Today" || memberSelector == "UtcNow");
+				   memberOperator == "." &&
+				   (memberSelector == "Now" || memberSelector == "Today" || memberSelector == "UtcNow");
 		}
 	}
 }

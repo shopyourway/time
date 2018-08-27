@@ -69,10 +69,10 @@ namespace OhioBox.Time.Analyzer.Tests
 			VerifyCSharpFix(test, fixtest);
 		}
 
-		protected override CodeFixProvider GetCSharpCodeFixProvider()
-		{
-			return new AnalyzerTestCodeFixProvider();
-		}
+		//protected override CodeFixProvider GetCSharpCodeFixProvider()
+		//{
+		//	return new AnalyzerTestCodeFixProvider();
+		//}
 
 		protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
 		{
