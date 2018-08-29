@@ -12,7 +12,7 @@ namespace OhioBox.Time.Analyzer
 		public const string DiagnosticId = "DateTimeUsage";
 
 		private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(DiagnosticId, "Access DateTime is not allowed",
-			"The use of DateTime.{0} is not allowed, use SystemTime.{0} instead", "Current time usage", DiagnosticSeverity.Error,
+			"The use of DateTime.{0} is not allowed, use SystemTime instead", "Current time usage", DiagnosticSeverity.Error,
 			isEnabledByDefault: true);
 
 		public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
