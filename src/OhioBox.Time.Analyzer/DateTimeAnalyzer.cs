@@ -22,7 +22,7 @@ namespace OhioBox.Time.Analyzer
 			context.RegisterSyntaxNodeAction(AnalyzeSimpleMemberAccessExpression, SyntaxKind.SimpleMemberAccessExpression);
 		}
 
-		private void AnalyzeSimpleMemberAccessExpression(SyntaxNodeAnalysisContext context)
+		private static void AnalyzeSimpleMemberAccessExpression(SyntaxNodeAnalysisContext context)
 		{
 			var expressionSyntax = (MemberAccessExpressionSyntax)context.Node;
 
