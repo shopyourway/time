@@ -5,12 +5,18 @@ VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OhioBox.Time", "OhioBox.Time\OhioBox.Time.csproj", "{ECB8A764-C3F2-4F74-8926-AAEAA7FF526D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OhioBox.Time.Tests", "OhioBox.Time.Tests\OhioBox.Time.Tests.csproj", "{302A3E14-4FFB-48B7-BF80-EC05A603FAD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OhioBox.Time.Tests", "OhioBox.Time.Tests\OhioBox.Time.Tests.csproj", "{302A3E14-4FFB-48B7-BF80-EC05A603FAD2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F2862739-1D8B-477E-A0E6-F3D54EDEEC99}"
-ProjectSection(SolutionItems) = preProject
-	.nuget\NuGet.config = .nuget\NuGet.config
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.config = .nuget\NuGet.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Analyzers", "Analyzers", "{765B8BDE-2FCA-4D20-AE45-CBF93D6909EA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OhioBox.Time.Analyzer", "OhioBox.Time.Analyzer\OhioBox.Time.Analyzer.csproj", "{A7CC6935-B84E-4E9E-8C04-080FD61EFE2E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OhioBox.Time.Analyzer.Tests", "OhioBox.Time.Analyzer.Tests\OhioBox.Time.Analyzer.Tests.csproj", "{43E66C12-4FC9-424E-8E72-DA01A3151126}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,8 +32,23 @@ Global
 		{302A3E14-4FFB-48B7-BF80-EC05A603FAD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{302A3E14-4FFB-48B7-BF80-EC05A603FAD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{302A3E14-4FFB-48B7-BF80-EC05A603FAD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7CC6935-B84E-4E9E-8C04-080FD61EFE2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7CC6935-B84E-4E9E-8C04-080FD61EFE2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7CC6935-B84E-4E9E-8C04-080FD61EFE2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7CC6935-B84E-4E9E-8C04-080FD61EFE2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43E66C12-4FC9-424E-8E72-DA01A3151126}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43E66C12-4FC9-424E-8E72-DA01A3151126}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43E66C12-4FC9-424E-8E72-DA01A3151126}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43E66C12-4FC9-424E-8E72-DA01A3151126}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A7CC6935-B84E-4E9E-8C04-080FD61EFE2E} = {765B8BDE-2FCA-4D20-AE45-CBF93D6909EA}
+		{43E66C12-4FC9-424E-8E72-DA01A3151126} = {765B8BDE-2FCA-4D20-AE45-CBF93D6909EA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EFCA0D25-A4D0-450E-9C4C-D603AC62D3BB}
 	EndGlobalSection
 EndGlobal
