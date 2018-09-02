@@ -1,7 +1,5 @@
 using System;
-using AnalyzerTest;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestHelper;
@@ -11,68 +9,144 @@ namespace OhioBox.Time.Analyzer.Tests
 	[TestClass]
 	public class UnitTest : CodeFixVerifier
 	{
-		//No diagnostics expected to show up
 		[TestMethod]
-		public void TestMethod1()
+		public void Test_NoDateTimeSimpleMemberAccessExpression_NoError()
 		{
-			var test = @"";
+			var test = @"
+				using System;
+				using System.Collections.Generic;
+				using System.Linq;
+				using System.Text;
+				using System.Threading.Tasks;
+				using System.Diagnostics;
+
+				namespace ConsoleApplication1
+				{
+					class TypeName
+					{
+						public static void Main()
+						{
+							var a = new DateTime();
+						}
+					}
+				}";
 
 			VerifyCSharpDiagnostic(test);
 		}
 
-		//Diagnostic and CodeFix both triggered and checked for
 		[TestMethod]
-		public void TestMethod2()
+		public void Test_WithDateTimeNowSimpleMemberAccessExpression_ThrowError()
 		{
 			var test = @"
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Diagnostics;
+				using System;
+				using System.Collections.Generic;
+				using System.Linq;
+				using System.Text;
+				using System.Threading.Tasks;
+				using System.Diagnostics;
 
-    namespace ConsoleApplication1
-    {
-        class TypeName
-        {   
-        }
-    }";
+				namespace ConsoleApplication1
+				{
+					class TypeName
+					{
+						public static void Main()
+						{
+							var a = new DateTime();
+							var b = DateTime.Now;
+						}
+					}
+				}";
+
 			var expected = new DiagnosticResult
 			{
-				Id = "AnalyzerTest",
-				Message = String.Format("Type name '{0}' contains lowercase letters", "TypeName"),
-				Severity = DiagnosticSeverity.Warning,
+				Id = DateTimeAnalyzer.DiagnosticId,
+				Message = "The use of DateTime.Now is not allowed, use SystemTime instead",
+				Severity = DiagnosticSeverity.Error,
 				Locations =
 					new[]
 					{
-						new DiagnosticResultLocation("Test0.cs", 11, 15)
+						new DiagnosticResultLocation("Test0.cs", 16, 16)
 					}
 			};
 
 			VerifyCSharpDiagnostic(test, expected);
-
-			var fixtest = @"
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Diagnostics;
-
-    namespace ConsoleApplication1
-    {
-        class TYPENAME
-        {   
-        }
-    }";
-			VerifyCSharpFix(test, fixtest);
 		}
 
-		//protected override CodeFixProvider GetCSharpCodeFixProvider()
-		//{
-		//	return new AnalyzerTestCodeFixProvider();
-		//}
+		[TestMethod]
+		public void Test_WithDateTimeTodaySimpleMemberAccessExpression_ThrowError()
+		{
+			var test = @"
+				using System;
+				using System.Collections.Generic;
+				using System.Linq;
+				using System.Text;
+				using System.Threading.Tasks;
+				using System.Diagnostics;
+
+				namespace ConsoleApplication1
+				{
+					class TypeName
+					{
+						public static void Main()
+						{
+							var a = new DateTime();
+							var b = DateTime.Today;
+						}
+					}
+				}";
+
+			var expected = new DiagnosticResult
+			{
+				Id = DateTimeAnalyzer.DiagnosticId,
+				Message = "The use of DateTime.Today is not allowed, use SystemTime instead",
+				Severity = DiagnosticSeverity.Error,
+				Locations =
+					new[]
+					{
+						new DiagnosticResultLocation("Test0.cs", 16, 16)
+					}
+			};
+
+			VerifyCSharpDiagnostic(test, expected);
+		}
+
+		[TestMethod]
+		public void Test_WithDateTimeUtcNowSimpleMemberAccessExpression_ThrowError()
+		{
+			var test = @"
+				using System;
+				using System.Collections.Generic;
+				using System.Linq;
+				using System.Text;
+				using System.Threading.Tasks;
+				using System.Diagnostics;
+
+				namespace ConsoleApplication1
+				{
+					class TypeName
+					{
+						public static void Main()
+						{
+							var a = new DateTime();
+							var b = DateTime.UtcNow;
+						}
+					}
+				}";
+
+			var expected = new DiagnosticResult
+			{
+				Id = DateTimeAnalyzer.DiagnosticId,
+				Message = "The use of DateTime.UtcNow is not allowed, use SystemTime instead",
+				Severity = DiagnosticSeverity.Error,
+				Locations =
+					new[]
+					{
+						new DiagnosticResultLocation("Test0.cs", 16, 16)
+					}
+			};
+
+			VerifyCSharpDiagnostic(test, expected);
+		}
 
 		protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
 		{

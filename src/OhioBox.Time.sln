@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Analyzers", "Analyzers", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OhioBox.Time.Analyzer", "OhioBox.Time.Analyzer\OhioBox.Time.Analyzer.csproj", "{A7CC6935-B84E-4E9E-8C04-080FD61EFE2E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OhioBox.Time.Analyzer.Tests", "OhioBox.Time.Analyzer.Tests\OhioBox.Time.Analyzer.Tests.csproj", "{43E66C12-4FC9-424E-8E72-DA01A3151126}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,12 +36,17 @@ Global
 		{A7CC6935-B84E-4E9E-8C04-080FD61EFE2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7CC6935-B84E-4E9E-8C04-080FD61EFE2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7CC6935-B84E-4E9E-8C04-080FD61EFE2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43E66C12-4FC9-424E-8E72-DA01A3151126}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43E66C12-4FC9-424E-8E72-DA01A3151126}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43E66C12-4FC9-424E-8E72-DA01A3151126}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43E66C12-4FC9-424E-8E72-DA01A3151126}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A7CC6935-B84E-4E9E-8C04-080FD61EFE2E} = {765B8BDE-2FCA-4D20-AE45-CBF93D6909EA}
+		{43E66C12-4FC9-424E-8E72-DA01A3151126} = {765B8BDE-2FCA-4D20-AE45-CBF93D6909EA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EFCA0D25-A4D0-450E-9C4C-D603AC62D3BB}
