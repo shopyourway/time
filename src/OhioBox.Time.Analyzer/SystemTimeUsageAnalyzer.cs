@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace OhioBox.Time.Analyzer
 {
 	[DiagnosticAnalyzer(LanguageNames.CSharp)]
-	public class DateTimeAnalyzer : DiagnosticAnalyzer
+	public class SystemTimeUsageAnalyzer : DiagnosticAnalyzer
 	{
 		public const string DiagnosticId = "DateTimeUsage";
 

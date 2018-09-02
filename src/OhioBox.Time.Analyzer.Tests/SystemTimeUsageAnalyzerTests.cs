@@ -1,4 +1,3 @@
-using System;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -7,10 +6,10 @@ using TestHelper;
 namespace OhioBox.Time.Analyzer.Tests
 {
 	[TestClass]
-	public class UnitTest : CodeFixVerifier
+	public class SystemTimeUsageAnalyzerTests : CodeFixVerifier
 	{
 		[TestMethod]
-		public void Test_NoDateTimeSimpleMemberAccessExpression_NoError()
+		public void AnalyzeCodeForUsageOfDateTime_WhenThereAreNoDateTimeSimpleMemberAccessExpression_ShouldNotThorwDiagnostic()
 		{
 			var test = @"
 				using System;
@@ -35,7 +34,7 @@ namespace OhioBox.Time.Analyzer.Tests
 		}
 
 		[TestMethod]
-		public void Test_WithDateTimeNowSimpleMemberAccessExpression_ThrowError()
+		public void AnalyzeCodeForUsageOfDateTime_WhenCodeHasDateTimeNowSimpleMemberAccessExpression_ShouldThorwDiagnostic()
 		{
 			var test = @"
 				using System;
@@ -59,7 +58,7 @@ namespace OhioBox.Time.Analyzer.Tests
 
 			var expected = new DiagnosticResult
 			{
-				Id = DateTimeAnalyzer.DiagnosticId,
+				Id = SystemTimeUsageAnalyzer.DiagnosticId,
 				Message = "The use of DateTime.Now is not allowed, use SystemTime instead",
 				Severity = DiagnosticSeverity.Error,
 				Locations =
@@ -73,7 +72,7 @@ namespace OhioBox.Time.Analyzer.Tests
 		}
 
 		[TestMethod]
-		public void Test_WithDateTimeTodaySimpleMemberAccessExpression_ThrowError()
+		public void AnalyzeCodeForUsageOfDateTime_WhenCodeHasDateTimeTodaySimpleMemberAccessExpression_ShouldThorwDiagnostic()
 		{
 			var test = @"
 				using System;
@@ -97,7 +96,7 @@ namespace OhioBox.Time.Analyzer.Tests
 
 			var expected = new DiagnosticResult
 			{
-				Id = DateTimeAnalyzer.DiagnosticId,
+				Id = SystemTimeUsageAnalyzer.DiagnosticId,
 				Message = "The use of DateTime.Today is not allowed, use SystemTime instead",
 				Severity = DiagnosticSeverity.Error,
 				Locations =
@@ -111,7 +110,7 @@ namespace OhioBox.Time.Analyzer.Tests
 		}
 
 		[TestMethod]
-		public void Test_WithDateTimeUtcNowSimpleMemberAccessExpression_ThrowError()
+		public void AnalyzeCodeForUsageOfDateTime_WhenCodeHasDateTimeUtcNowSimpleMemberAccessExpression_ShouldThorwDiagnostic()
 		{
 			var test = @"
 				using System;
@@ -135,7 +134,7 @@ namespace OhioBox.Time.Analyzer.Tests
 
 			var expected = new DiagnosticResult
 			{
-				Id = DateTimeAnalyzer.DiagnosticId,
+				Id = SystemTimeUsageAnalyzer.DiagnosticId,
 				Message = "The use of DateTime.UtcNow is not allowed, use SystemTime instead",
 				Severity = DiagnosticSeverity.Error,
 				Locations =
@@ -148,9 +147,35 @@ namespace OhioBox.Time.Analyzer.Tests
 			VerifyCSharpDiagnostic(test, expected);
 		}
 
+		[TestMethod]
+		public void AnalyzeCodeForUsageOfDateTime_WhenCodeHasSystemTimeNowSimpleMemberAccessExpression_ShouldNotThorwDiagnostic()
+		{
+			var test = @"
+				using System;
+				using System.Collections.Generic;
+				using System.Linq;
+				using System.Text;
+				using System.Threading.Tasks;
+				using System.Diagnostics;
+
+				namespace ConsoleApplication1
+				{
+					class TypeName
+					{
+						public static void Main()
+						{
+							var a = new DateTime();
+							var b = SystemTime.Now;
+						}
+					}
+				}";
+
+			VerifyCSharpDiagnostic(test);
+		}
+
 		protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
 		{
-			return new DateTimeAnalyzer();
+			return new SystemTimeUsageAnalyzer();
 		}
 	}
 }
