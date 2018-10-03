@@ -38,7 +38,7 @@ namespace OhioBox.Time.Analyzer
 
 			context.RegisterCodeFix(
 			  CodeAction.Create(Title, c =>
-			  FixRegexAsync(context.Document, expressionSyntax, c)), diagnostic);
+			  FixRegexAsync(context.Document, expressionSyntax, c), equivalenceKey:Title), diagnostic);
 		}
 
 		private async Task<Document> FixRegexAsync(Document document,
