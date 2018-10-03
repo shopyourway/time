@@ -58,7 +58,7 @@ namespace OhioBox.Time.Analyzer.Tests
 
 			var expected = new DiagnosticResult
 			{
-				Id = SystemTimeUsageAnalyzer.DiagnosticId,
+				Id = SystemTimeUsageDiagnosticAnalyzer.DiagnosticId,
 				Message = "The use of DateTime.Now is not allowed, use SystemTime instead",
 				Severity = DiagnosticSeverity.Error,
 				Locations =
@@ -96,7 +96,7 @@ namespace OhioBox.Time.Analyzer.Tests
 
 			var expected = new DiagnosticResult
 			{
-				Id = SystemTimeUsageAnalyzer.DiagnosticId,
+				Id = SystemTimeUsageDiagnosticAnalyzer.DiagnosticId,
 				Message = "The use of DateTime.Today is not allowed, use SystemTime instead",
 				Severity = DiagnosticSeverity.Error,
 				Locations =
@@ -134,7 +134,7 @@ namespace OhioBox.Time.Analyzer.Tests
 
 			var expected = new DiagnosticResult
 			{
-				Id = SystemTimeUsageAnalyzer.DiagnosticId,
+				Id = SystemTimeUsageDiagnosticAnalyzer.DiagnosticId,
 				Message = "The use of DateTime.UtcNow is not allowed, use SystemTime instead",
 				Severity = DiagnosticSeverity.Error,
 				Locations =
@@ -175,7 +175,7 @@ namespace OhioBox.Time.Analyzer.Tests
 
 		protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
 		{
-			return new SystemTimeUsageAnalyzer();
+			return new SystemTimeUsageDiagnosticAnalyzer();
 		}
 	}
 }
