@@ -54,6 +54,14 @@ namespace OhioBox.Time.Analyzer
 			var root = await document.GetSyntaxRootAsync(cancellationToken);
 			var newRoot = root.ReplaceNode(identifier, systemTimeNameSyntax);
 
+			newRoot = AddUsing(newRoot);
+
+			var newDocument = document.WithSyntaxRoot(newRoot);
+			return newDocument;
+		}
+
+		private static SyntaxNode AddUsing(SyntaxNode newRoot)
+		{
 			if (newRoot is CompilationUnitSyntax compilationUnitSyntax)
 			{
 				if (!compilationUnitSyntax.Usings.Any(use => use.Name.ToString() == "OhioBox.Time"))
@@ -67,8 +75,7 @@ namespace OhioBox.Time.Analyzer
 				}
 			}
 
-			var newDocument = document.WithSyntaxRoot(newRoot);
-			return newDocument;
+			return newRoot;
 		}
 	}
 }
