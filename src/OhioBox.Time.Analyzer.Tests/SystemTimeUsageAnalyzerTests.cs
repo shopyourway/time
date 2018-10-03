@@ -180,48 +180,48 @@ namespace OhioBox.Time.Analyzer.Tests
 		public void SystemTimeUsageCodeFixProvider_WhenMissingUsingStatement_ShouldAddUsingStatementAndFixCode()
 		{
 			var beforeFix = @"
-				using System;
-				using System.Collections.Generic;
-				using System.Linq;
-				using System.Text;
-				using System.Threading.Tasks;
-				using System.Diagnostics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
-				namespace ConsoleApplication1
-				{
-					class TypeName
-					{
-						public static void Main()
-						{
-							var a = new DateTime();
-							var b = DateTime.UtcNow;
-						}
-					}
-				}";
+namespace ConsoleApplication1
+{
+	class TypeName
+	{
+		public static void Main()
+		{
+			var a = new DateTime();
+			var b = DateTime.UtcNow;
+		}
+	}
+}";
 
 			var afterFix = @"
-				using System;
-				using System.Collections.Generic;
-				using System.Linq;
-				using System.Text;
-				using System.Threading.Tasks;
-				using System.Diagnostics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Diagnostics;
 using OhioBox.Time;
 
 namespace ConsoleApplication1
-				{
-					class TypeName
-					{
-						public static void Main()
-						{
-							var a = new DateTime();
-							var b = SystemTime.UtcNow;
-						}
-					}
-				}";
+{
+	class TypeName
+	{
+		public static void Main()
+		{
+			var a = new DateTime();
+			var b = SystemTime.UtcNow;
+		}
+	}
+}";
 
 
-			VerifyCSharpFix(beforeFix, afterFix, allowNewCompilerDiagnostics:true);
+			VerifyCSharpFix(beforeFix, afterFix, allowNewCompilerDiagnostics: true);
 		}
 
 		[TestMethod]
