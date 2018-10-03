@@ -125,7 +125,7 @@ namespace TestHelper
 			for (int i = 0; i < newSource.Length; i++)
 			{
 				if (newSource[i] != actual[i])
-					throw new AssertFailedException($"new source is {newSource[i]},{(int)newSource[i]} postion is {i} and actual is {actual[i]},{(int)actual[i]} and postion is {i}");
+					throw new AssertFailedException($"new source is {newSource[i]},{(int)newSource[i]} postion is {i} and actual is {actual[i]},{(int)actual[i]} and postion is {i} and substring is {actual.Substring(0,i+1)}");
 			}
             Assert.AreEqual(newSource, actual);
         }
