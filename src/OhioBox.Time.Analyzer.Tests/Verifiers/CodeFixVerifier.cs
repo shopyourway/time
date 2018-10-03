@@ -122,6 +122,11 @@ namespace TestHelper
 
             //after applying all of the code fixes, compare the resulting string to the inputted one
             var actual = GetStringFromDocument(document);
+			for (int i = 0; i < newSource.Length; i++)
+			{
+				if (newSource[i] != actual[i])
+					throw new AssertFailedException($"new source is {newSource[i]},{(int)newSource[i]} and actual is {actual[i]},{(int)newSource[i]} and postion is {i}");
+			}
             Assert.AreEqual(newSource, actual);
         }
     }
