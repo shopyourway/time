@@ -1,4 +1,5 @@
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestHelper;
@@ -58,7 +59,7 @@ namespace OhioBox.Time.Analyzer.Tests
 
 			var expected = new DiagnosticResult
 			{
-				Id = SystemTimeUsageAnalyzer.DiagnosticId,
+				Id = SystemTimeUsageDiagnosticAnalyzer.DiagnosticId,
 				Message = "The use of DateTime.Now is not allowed, use SystemTime instead",
 				Severity = DiagnosticSeverity.Error,
 				Locations =
@@ -96,7 +97,7 @@ namespace OhioBox.Time.Analyzer.Tests
 
 			var expected = new DiagnosticResult
 			{
-				Id = SystemTimeUsageAnalyzer.DiagnosticId,
+				Id = SystemTimeUsageDiagnosticAnalyzer.DiagnosticId,
 				Message = "The use of DateTime.Today is not allowed, use SystemTime instead",
 				Severity = DiagnosticSeverity.Error,
 				Locations =
@@ -134,7 +135,7 @@ namespace OhioBox.Time.Analyzer.Tests
 
 			var expected = new DiagnosticResult
 			{
-				Id = SystemTimeUsageAnalyzer.DiagnosticId,
+				Id = SystemTimeUsageDiagnosticAnalyzer.DiagnosticId,
 				Message = "The use of DateTime.UtcNow is not allowed, use SystemTime instead",
 				Severity = DiagnosticSeverity.Error,
 				Locations =
@@ -145,6 +146,8 @@ namespace OhioBox.Time.Analyzer.Tests
 			};
 
 			VerifyCSharpDiagnostic(test, expected);
+
+
 		}
 
 		[TestMethod]
@@ -173,9 +176,111 @@ namespace OhioBox.Time.Analyzer.Tests
 			VerifyCSharpDiagnostic(test);
 		}
 
+		[TestMethod]
+		public void SystemTimeUsageCodeFixProvider_WhenMissingUsingStatement_ShouldAddUsingStatementAndFixCode()
+		{
+			var beforeFix = @"
+				using System;
+				using System.Collections.Generic;
+				using System.Linq;
+				using System.Text;
+				using System.Threading.Tasks;
+				using System.Diagnostics;
+
+				namespace ConsoleApplication1
+				{
+					class TypeName
+					{
+						public static void Main()
+						{
+							var a = new DateTime();
+							var b = DateTime.UtcNow;
+						}
+					}
+				}";
+
+			var afterFix = @"
+				using System;
+				using System.Collections.Generic;
+				using System.Linq;
+				using System.Text;
+				using System.Threading.Tasks;
+				using System.Diagnostics;
+using OhioBox.Time;
+
+namespace ConsoleApplication1
+				{
+					class TypeName
+					{
+						public static void Main()
+						{
+							var a = new DateTime();
+							var b = SystemTime.UtcNow;
+						}
+					}
+				}";
+
+
+			VerifyCSharpFix(beforeFix, afterFix, allowNewCompilerDiagnostics:true);
+		}
+
+		[TestMethod]
+		public void SystemTimeUsageCodeFixProvider_WhenCodeHasDateTimeUsage_ShouldReplaceWithSystemTime()
+		{
+			var beforeFix = @"
+				using System;
+				using System.Collections.Generic;
+				using System.Linq;
+				using System.Text;
+				using System.Threading.Tasks;
+				using System.Diagnostics;
+				using OhioBox.Time;
+
+				namespace ConsoleApplication1
+				{
+					class TypeName
+					{
+						public static void Main()
+						{
+							var a = new DateTime();
+							var b = DateTime.UtcNow;
+						}
+					}
+				}";
+
+			var afterFix = @"
+				using System;
+				using System.Collections.Generic;
+				using System.Linq;
+				using System.Text;
+				using System.Threading.Tasks;
+				using System.Diagnostics;
+				using OhioBox.Time;
+
+				namespace ConsoleApplication1
+				{
+					class TypeName
+					{
+						public static void Main()
+						{
+							var a = new DateTime();
+							var b = SystemTime.UtcNow;
+						}
+					}
+				}";
+
+
+			VerifyCSharpFix(beforeFix, afterFix, allowNewCompilerDiagnostics: true);
+		}
+
 		protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
 		{
-			return new SystemTimeUsageAnalyzer();
+			return new SystemTimeUsageDiagnosticAnalyzer();
+		}
+
+		protected override CodeFixProvider GetCSharpCodeFixProvider()
+		{
+			return new SystemTimeUsageCodeFixProvider();
 		}
 	}
 }
