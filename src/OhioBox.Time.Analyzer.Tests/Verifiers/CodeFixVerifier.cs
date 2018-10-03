@@ -124,7 +124,7 @@ namespace TestHelper
             var actual = GetStringFromDocument(document);
 			for (int i = 0; i < newSource.Length; i++)
 			{
-				if (newSource[i] != actual[i])
+				if ((int)newSource[i] != (int)actual[i])
 					throw new AssertFailedException($"new source is {newSource[i]},{(int)newSource[i]} and actual is {actual[i]},{(int)newSource[i]} and postion is {i}");
 			}
             Assert.AreEqual(newSource, actual);
