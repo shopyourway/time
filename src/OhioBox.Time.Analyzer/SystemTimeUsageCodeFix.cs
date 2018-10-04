@@ -48,16 +48,36 @@ namespace OhioBox.Time.Analyzer
 			var semanticModel =
 			  await document.GetSemanticModelAsync(cancellationToken);
 
-			var identifier = (IdentifierNameSyntax)expressionSyntax.Expression;
-			var systemTimeNameSyntax = SyntaxFactory.IdentifierName("SystemTime");
+			var systemTimeMemberAccess = GetSystemTimeMemberAccess(expressionSyntax.Name.Identifier.ValueText);
+
+			if (string.IsNullOrEmpty(systemTimeMemberAccess))
+				return document;
+
+			var systemTimeIdentifier = SyntaxFactory.IdentifierName("SystemTime");
+			var systemTimeMemberAccessIdentifier = SyntaxFactory.IdentifierName(systemTimeMemberAccess);
+			var memberaccess = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, systemTimeIdentifier, systemTimeMemberAccessIdentifier);
 
 			var root = await document.GetSyntaxRootAsync(cancellationToken);
-			var newRoot = root.ReplaceNode(identifier, systemTimeNameSyntax);
+			var newRoot = root.ReplaceNode(expressionSyntax, memberaccess);
 
 			newRoot = AddUsing(newRoot);
 
 			var newDocument = document.WithSyntaxRoot(newRoot);
 			return newDocument;
+		}
+
+		private string GetSystemTimeMemberAccess(string memberSelector)
+		{
+			if (memberSelector == "Now")
+				return "Now()";
+
+			if (memberSelector == "UtcNow")
+				return "Now()";
+
+			if (memberSelector == "Today")
+				return "Today()";
+
+			return string.Empty;
 		}
 
 		private static SyntaxNode AddUsing(SyntaxNode newRoot)
