@@ -215,7 +215,7 @@ namespace ConsoleApplication1
 		public static void Main()
 		{
 			var a = new DateTime();
-			var b = SystemTime.UtcNow;
+			var b = SystemTime.Now();
 		}
 	}
 }";
@@ -225,7 +225,7 @@ namespace ConsoleApplication1
 		}
 
 		[TestMethod]
-		public void SystemTimeUsageCodeFixProvider_WhenCodeHasDateTimeUsage_ShouldReplaceWithSystemTime()
+		public void SystemTimeUsageCodeFixProvider_WhenCodeHasDateTimeUtcNowUsage_ShouldReplaceWithSystemTimeNow()
 		{
 			var beforeFix = @"
 				using System;
@@ -264,7 +264,105 @@ namespace ConsoleApplication1
 						public static void Main()
 						{
 							var a = new DateTime();
-							var b = SystemTime.UtcNow;
+							var b = SystemTime.Now();
+						}
+					}
+				}";
+
+
+			VerifyCSharpFix(beforeFix, afterFix, allowNewCompilerDiagnostics: true);
+		}
+
+		[TestMethod]
+		public void SystemTimeUsageCodeFixProvider_WhenCodeHasDateTimeNowUsage_ShouldReplaceWithSystemTimeNow()
+		{
+			var beforeFix = @"
+				using System;
+				using System.Collections.Generic;
+				using System.Linq;
+				using System.Text;
+				using System.Threading.Tasks;
+				using System.Diagnostics;
+				using OhioBox.Time;
+
+				namespace ConsoleApplication1
+				{
+					class TypeName
+					{
+						public static void Main()
+						{
+							var a = new DateTime();
+							var b = DateTime.Now;
+						}
+					}
+				}";
+
+			var afterFix = @"
+				using System;
+				using System.Collections.Generic;
+				using System.Linq;
+				using System.Text;
+				using System.Threading.Tasks;
+				using System.Diagnostics;
+				using OhioBox.Time;
+
+				namespace ConsoleApplication1
+				{
+					class TypeName
+					{
+						public static void Main()
+						{
+							var a = new DateTime();
+							var b = SystemTime.Now();
+						}
+					}
+				}";
+
+
+			VerifyCSharpFix(beforeFix, afterFix, allowNewCompilerDiagnostics: true);
+		}
+
+		[TestMethod]
+		public void SystemTimeUsageCodeFixProvider_WhenCodeHasDateTimeTodayUsage_ShouldReplaceWithSystemTimeToday()
+		{
+			var beforeFix = @"
+				using System;
+				using System.Collections.Generic;
+				using System.Linq;
+				using System.Text;
+				using System.Threading.Tasks;
+				using System.Diagnostics;
+				using OhioBox.Time;
+
+				namespace ConsoleApplication1
+				{
+					class TypeName
+					{
+						public static void Main()
+						{
+							var a = new DateTime();
+							var b = DateTime.Today;
+						}
+					}
+				}";
+
+			var afterFix = @"
+				using System;
+				using System.Collections.Generic;
+				using System.Linq;
+				using System.Text;
+				using System.Threading.Tasks;
+				using System.Diagnostics;
+				using OhioBox.Time;
+
+				namespace ConsoleApplication1
+				{
+					class TypeName
+					{
+						public static void Main()
+						{
+							var a = new DateTime();
+							var b = SystemTime.Today();
 						}
 					}
 				}";
