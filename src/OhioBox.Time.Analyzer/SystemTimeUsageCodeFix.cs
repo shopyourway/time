@@ -14,7 +14,7 @@ namespace OhioBox.Time.Analyzer
 	[ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(SystemTimeUsageCodeFixProvider)), Shared]
 	public class SystemTimeUsageCodeFixProvider : CodeFixProvider
 	{
-		private const string Title = "use SystemTime insted";
+		private const string Title = "Use SystemTime insted of DateTime";
 
 		public sealed override ImmutableArray<string> FixableDiagnosticIds => ImmutableArray.Create(SystemTimeUsageDiagnosticAnalyzer.DiagnosticId);
 
